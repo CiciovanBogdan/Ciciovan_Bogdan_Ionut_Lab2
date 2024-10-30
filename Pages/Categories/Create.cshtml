@@ -7,19 +7,16 @@
 
 <h1>Create</h1>
 
-<h4>BookCategory</h4>
+<h4>Category</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="BookCategory.BookID" class="control-label"></label>
-                <select asp-for="BookCategory.BookID" class ="form-control" asp-items="ViewBag.BookID"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="BookCategory.CategoryID" class="control-label"></label>
-                <select asp-for="BookCategory.CategoryID" class ="form-control" asp-items="ViewBag.CategoryID"></select>
+                <label asp-for="Category.CategoryName" class="control-label"></label>
+                <input asp-for="Category.CategoryName" class="form-control" />
+                <span asp-validation-for="Category.CategoryName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

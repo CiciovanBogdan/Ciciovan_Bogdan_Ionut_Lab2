@@ -21,7 +21,7 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Pages.Categories
         }
 
         [BindProperty]
-        public BookCategory BookCategory { get; set; } = default!;
+        public Category Category { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,14 +30,12 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Pages.Categories
                 return NotFound();
             }
 
-            var bookcategory =  await _context.BookCategory.FirstOrDefaultAsync(m => m.ID == id);
-            if (bookcategory == null)
+            var category =  await _context.Category.FirstOrDefaultAsync(m => m.ID == id);
+            if (category == null)
             {
                 return NotFound();
             }
-            BookCategory = bookcategory;
-           ViewData["BookID"] = new SelectList(_context.Book, "ID", "ID");
-           ViewData["CategoryID"] = new SelectList(_context.Set<Category>(), "ID", "ID");
+            Category = category;
             return Page();
         }
 
@@ -50,7 +48,7 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Pages.Categories
                 return Page();
             }
 
-            _context.Attach(BookCategory).State = EntityState.Modified;
+            _context.Attach(Category).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +56,7 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Pages.Categories
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BookCategoryExists(BookCategory.ID))
+                if (!CategoryExists(Category.ID))
                 {
                     return NotFound();
                 }
@@ -71,9 +69,9 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Pages.Categories
             return RedirectToPage("./Index");
         }
 
-        private bool BookCategoryExists(int id)
+        private bool CategoryExists(int id)
         {
-            return _context.BookCategory.Any(e => e.ID == id);
+            return _context.Category.Any(e => e.ID == id);
         }
     }
 }

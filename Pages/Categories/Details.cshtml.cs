@@ -19,7 +19,7 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Pages.Categories
             _context = context;
         }
 
-        public BookCategory BookCategory { get; set; } = default!;
+        public Category Category { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,14 +28,14 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Pages.Categories
                 return NotFound();
             }
 
-            var bookcategory = await _context.BookCategory.FirstOrDefaultAsync(m => m.ID == id);
-            if (bookcategory == null)
+            var category = await _context.Category.FirstOrDefaultAsync(m => m.ID == id);
+            if (category == null)
             {
                 return NotFound();
             }
             else
             {
-                BookCategory = bookcategory;
+                Category = category;
             }
             return Page();
         }

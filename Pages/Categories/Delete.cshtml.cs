@@ -20,7 +20,7 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Pages.Categories
         }
 
         [BindProperty]
-        public BookCategory BookCategory { get; set; } = default!;
+        public Category Category { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,15 +29,15 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Pages.Categories
                 return NotFound();
             }
 
-            var bookcategory = await _context.BookCategory.FirstOrDefaultAsync(m => m.ID == id);
+            var category = await _context.Category.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (bookcategory == null)
+            if (category == null)
             {
                 return NotFound();
             }
             else
             {
-                BookCategory = bookcategory;
+                Category = category;
             }
             return Page();
         }
@@ -49,11 +49,11 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Pages.Categories
                 return NotFound();
             }
 
-            var bookcategory = await _context.BookCategory.FindAsync(id);
-            if (bookcategory != null)
+            var category = await _context.Category.FindAsync(id);
+            if (category != null)
             {
-                BookCategory = bookcategory;
-                _context.BookCategory.Remove(BookCategory);
+                Category = category;
+                _context.Category.Remove(Category);
                 await _context.SaveChangesAsync();
             }
 
