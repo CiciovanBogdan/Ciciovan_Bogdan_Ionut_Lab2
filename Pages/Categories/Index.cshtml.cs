@@ -32,7 +32,7 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Pages.Categories
             CategoryData = new CategoryIndexData();
             CategoryData.Categories = await _context.Category
                 .Include(i => i.BookCategories)
-                //.ThenInclude(c => c.Book.Title)
+                .ThenInclude(c => c.Book)
                 .OrderBy(i => i.CategoryName)
                 .ToListAsync();
             if (id != null)
