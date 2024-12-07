@@ -42,28 +42,28 @@
     </tbody>
 </table>
 
-@* @if (Model.CategoryData.BookCategories != null) *@
-@* { *@
-@*     <h3>Books Edited by Selected Publisher</h3> *@
-@*     <table class="table"> *@
-@*         @foreach (var item in Model.CategoryData.Categories) *@
-@*         { *@
-@*             string selectedRow = ""; *@
-@*             if (item.ID == Model.CategoryID) *@
-@*             { *@
-@*                 selectedRow = "table-success"; *@
-@*             } *@
-@*             <tr class="@selectedRow"> *@
-@*                 <td> *@
-@*                     @{ *@
-@*                         foreach (var b in item.BookCategories) *@
-@*                         { *@
-@*                             @b.Book.Title *@
-@*                             <br /> *@
-@*                         } *@
-@*                     } *@
-@*                 </td> *@
-@*             </tr> *@
-@*         } *@
-@*     </table> *@
-@* } *@
+ @if (Model.CategoryData.BookCategories != null) 
+ { 
+    <h3>Books Edited by Selected Publisher</h3> 
+    <table class="table"> 
+        @foreach (var item in Model.CategoryData.Categories) 
+         { 
+            string selectedRow = ""; 
+            if (item.ID == Model.CategoryID) 
+            { 
+                selectedRow = "table-success"; 
+            } 
+            <tr class="@selectedRow"> 
+                <td> 
+                    @{ 
+                         foreach (var b in item.BookCategories) 
+                        { 
+                            @b.Book.Title 
+                            <br /> 
+                        } 
+                    } 
+                </td> 
+            </tr> 
+        } 
+    </table> 
+ }
