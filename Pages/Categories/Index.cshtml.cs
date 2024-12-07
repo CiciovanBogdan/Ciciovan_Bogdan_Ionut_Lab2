@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Ciciovan_Bogdan_Ionut_Lab2.Data;
 using Ciciovan_Bogdan_Ionut_Lab2.Models;
+using Ciciovan_Bogdan_Ionut_Lab2.Models.ViewModels;
+using System.Security.Policy;
 
 namespace Ciciovan_Bogdan_Ionut_Lab2.Pages.Categories
 {
@@ -21,9 +23,25 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Pages.Categories
 
         public IList<Category> Category { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public CategoryIndexData CategoryData { get; set; }
+        public int CategoryID { get; set; }
+        public int BookID { get; set; }
+
+        public async Task OnGetAsync(int? id, int? bookID)
         {
-            Category = await _context.Category.ToListAsync();
+            CategoryData = new CategoryIndexData();
+            CategoryData.Categories = await _context.Category
+                .Include(i => i.BookCategories)
+                //.ThenInclude(c => c.Book.Title)
+                .OrderBy(i => i.CategoryName)
+                .ToListAsync();
+            if (id != null)
+            {
+                CategoryID = id.Value;
+                Category category = CategoryData.Categories
+                .Where(i => i.ID == id.Value).Single();
+                CategoryData.BookCategories = category.BookCategories;
+            }
         }
     }
 }
