@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -12,9 +11,9 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Pages.Borrowings
 {
     public class DetailsModel : PageModel
     {
-        private readonly Ciciovan_Bogdan_Ionut_Lab2.Data.Ciciovan_Bogdan_Ionut_Lab2Context _context;
+        private readonly Ciciovan_Bogdan_Ionut_Lab2Context _context;
 
-        public DetailsModel(Ciciovan_Bogdan_Ionut_Lab2.Data.Ciciovan_Bogdan_Ionut_Lab2Context context)
+        public DetailsModel(Ciciovan_Bogdan_Ionut_Lab2Context context)
         {
             _context = context;
         }
@@ -28,15 +27,17 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Pages.Borrowings
                 return NotFound();
             }
 
-            var borrowing = await _context.Borrowing.FirstOrDefaultAsync(m => m.ID == id);
-            if (borrowing == null)
+            Borrowing = await _context.Borrowing
+                .Include(b => b.Member)
+                .Include(b => b.Book)
+                .ThenInclude(book => book.Author)
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (Borrowing == null)
             {
                 return NotFound();
             }
-            else
-            {
-                Borrowing = borrowing;
-            }
+
             return Page();
         }
     }

@@ -11,26 +11,19 @@
     <h4>Borrowing</h4>
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Borrowing.Member)
-        </dt>
+        <dt class="col-sm-2">Member</dt>
+        <dd class="col-sm-10">@Model.Borrowing.Member.FirstName @Model.Borrowing.Member.LastName</dd>
+
+        <dt class="col-sm-2">Book</dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Borrowing.Member.ID)
+            @Model.Borrowing.Book.Title by @Model.Borrowing.Book.Author.FirstName @Model.Borrowing.Book.Author.LastName
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Borrowing.Book)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Borrowing.Book.ID)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Borrowing.ReturnDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Borrowing.ReturnDate)
-        </dd>
+
+        <dt class="col-sm-2">Return Date</dt>
+        <dd class="col-sm-10">@Model.Borrowing.ReturnDate.ToString("d")</dd>
     </dl>
 </div>
+
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Borrowing.ID">Edit</a> |
     <a asp-page="./Index">Back to List</a>
