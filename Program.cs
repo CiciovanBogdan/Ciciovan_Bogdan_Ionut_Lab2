@@ -1,9 +1,20 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Ciciovan_Bogdan_Ionut_Lab2.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<Ciciovan_Bogdan_Ionut_Lab2Context>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Ciciovan_Bogdan_Ionut_Lab2Context") ?? throw new InvalidOperationException("Connection string 'Ciciovan_Bogdan_Ionut_Lab2Context' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    DbInitializer.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
