@@ -49,6 +49,8 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Controllers
         // GET: Books/Create
         public IActionResult Create()
         {
+            ViewData["AuthorsFirstName"] = new SelectList(_context.Set<Authors>(), "ID", "FirstName");
+            ViewData["AuthorsLastName"] = new SelectList(_context.Set<Authors>(), "ID", "LastName");
             ViewData["GenreID"] = new SelectList(_context.Set<Genre>(), "ID", "Name");
             return View();
         }
@@ -85,6 +87,8 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Controllers
             {
                 return NotFound();
             }
+            ViewData["AuthorsFirstName"] = new SelectList(_context.Set<Authors>(), "ID", "FirstName", book.AuthorsID);
+            ViewData["AuthorsLastName"] = new SelectList(_context.Set<Authors>(), "ID", "LastName", book.AuthorsID);
             ViewData["GenreID"] = new SelectList(_context.Set<Genre>(), "ID", "Name", book.GenreID);
             return View(book);
         }
@@ -121,6 +125,8 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AuthorsFirstName"] = new SelectList(_context.Set<Authors>(), "ID", "FirstName", book.AuthorsID);
+            ViewData["AuthorsLastName"] = new SelectList(_context.Set<Authors>(), "ID", "LastName", book.AuthorsID);
             ViewData["GenreID"] = new SelectList(_context.Set<Genre>(), "ID", "Name", book.GenreID);
             return View(book);
         }
