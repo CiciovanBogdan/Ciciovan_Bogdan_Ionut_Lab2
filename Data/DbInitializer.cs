@@ -13,11 +13,11 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Data
                 {
                     return; // BD a fost creata anterior
                 }
-                context.Book.AddRange(
-                new Book { Title = "Baltagul", Author = "Mihail Sadoveanu", Price = Decimal.Parse("22") },
-                new Book { Title = "Enigma Otiliei", Author = "George Calinescu", Price = Decimal.Parse("18") },
-                new Book { Title = "Maytrei", Author = "Mircea Eliade", Price = Decimal.Parse("27") }
-                );
+                //context.Book.AddRange(
+                //new Book { Title = "Baltagul", Authors = "Mihail Sadoveanu", Price = Decimal.Parse("22") },
+                //new Book { Title = "Enigma Otiliei", Authors = "George Calinescu", Price = Decimal.Parse("18") },
+                //new Book { Title = "Maytrei", Authors = "Mircea Eliade", Price = Decimal.Parse("27") }
+                //);
                 context.Genre.AddRange(
                 new Genre { Name = "Roman" },
                 new Genre { Name = "Nuvela" },

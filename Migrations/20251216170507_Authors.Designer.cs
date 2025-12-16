@@ -4,6 +4,7 @@ using Ciciovan_Bogdan_Ionut_Lab2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ciciovan_Bogdan_Ionut_Lab2.Migrations
 {
     [DbContext(typeof(Ciciovan_Bogdan_Ionut_Lab2Context))]
-    partial class Ciciovan_Bogdan_Ionut_Lab2ContextModelSnapshot : ModelSnapshot
+    [Migration("20251216170507_Authors")]
+    partial class Authors
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -140,7 +143,7 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Migrations
             modelBuilder.Entity("Ciciovan_Bogdan_Ionut_Lab2.Models.Book", b =>
                 {
                     b.HasOne("Ciciovan_Bogdan_Ionut_Lab2.Models.Authors", "Authors")
-                        .WithMany("Books")
+                        .WithMany()
                         .HasForeignKey("AuthorsID");
 
                     b.HasOne("Ciciovan_Bogdan_Ionut_Lab2.Models.Genre", "Genre")
@@ -165,11 +168,6 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("Customer");
-                });
-
-            modelBuilder.Entity("Ciciovan_Bogdan_Ionut_Lab2.Models.Authors", b =>
-                {
-                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("Ciciovan_Bogdan_Ionut_Lab2.Models.Book", b =>
