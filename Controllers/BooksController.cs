@@ -81,10 +81,12 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Controllers
             }
 
             var book = await _context.Book
-            .Include(s => s.Orders)
-            .ThenInclude(e => e.Customer)
-            .AsNoTracking()
-            .FirstOrDefaultAsync(m => m.ID == id);
+                .Include(b => b.Authors)
+                .Include(b => b.Genre)
+                .Include(b => b.Orders)
+                .ThenInclude(o => o.Customer)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.ID == id);
 
             if (book == null)
             {
