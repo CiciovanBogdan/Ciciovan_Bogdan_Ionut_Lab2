@@ -20,11 +20,14 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Controllers
         }
 
         // GET: Books
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string authorFilter)
         {
             ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             ViewData["PriceSortParm"] = sortOrder == "Price" ? "price_desc" : "Price";
+            ViewData["AuthorSortParm"] = sortOrder == "Author" ? "author_desc" : "Author";
             ViewData["CurrentFilter"] = searchString;
+            ViewData["CurrentAuthorFilter"] = authorFilter;
+
             var books = from b in _context.Book
                         join a in _context.Authors on b.AuthorsID equals a.ID
                         select new BookViewModel
@@ -39,6 +42,12 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Controllers
             {
                 books = books.Where(s => s.Title.Contains(searchString));
             }
+
+            if (!String.IsNullOrEmpty(authorFilter))
+            {
+                books = books.Where(s => s.FullName.Contains(authorFilter));
+            }
+
             switch (sortOrder)
             {
                 case "title_desc":
@@ -49,6 +58,12 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Controllers
                     break;
                 case "price_desc":
                     books = books.OrderByDescending(b => b.Price);
+                    break;
+                case "Author":
+                    books = books.OrderBy(b => b.FullName);
+                    break;
+                case "author_desc":
+                    books = books.OrderByDescending(b => b.FullName);
                     break;
                 default:
                     books = books.OrderBy(b => b.Title);
