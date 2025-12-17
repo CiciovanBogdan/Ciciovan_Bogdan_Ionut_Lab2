@@ -22,7 +22,9 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Controllers
         // GET: Books
         public async Task<IActionResult> Index()
         {
-            var ciciovan_Bogdan_Ionut_Lab2Context = _context.Book.Include(b => b.Genre);
+            var ciciovan_Bogdan_Ionut_Lab2Context = _context.Book
+                .Include(b => b.Genre)
+                .Include(b => b.Authors);
             return View(await ciciovan_Bogdan_Ionut_Lab2Context.ToListAsync());
         }
 
@@ -49,8 +51,13 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Controllers
         // GET: Books/Create
         public IActionResult Create()
         {
-            ViewData["AuthorsFirstName"] = new SelectList(_context.Set<Authors>(), "ID", "FirstName");
-            ViewData["AuthorsLastName"] = new SelectList(_context.Set<Authors>(), "ID", "LastName");
+            ViewData["AuthorsID"] = new SelectList(_context.Set<Authors>()
+                .Select(a => new
+                {
+                    a.ID,
+                    FullName = a.FirstName + " " + a.LastName
+                }), "ID", "FullName");
+
             ViewData["GenreID"] = new SelectList(_context.Set<Genre>(), "ID", "Name");
             return View();
         }
@@ -60,7 +67,7 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,Authors,Price,GenreID")] Book book)
+        public async Task<IActionResult> Create([Bind("ID,Title,AuthorsID,Price,GenreID")] Book book)
         {
             if (ModelState.IsValid)
             {
@@ -68,8 +75,14 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorsFirstName"] = new SelectList(_context.Set<Authors>(), "ID", "FirstName", book.AuthorsID);
-            ViewData["AuthorsLastName"] = new SelectList(_context.Set<Authors>(), "ID", "LastName", book.AuthorsID);
+
+            ViewData["AuthorsID"] = new SelectList(_context.Set<Authors>()
+                .Select(a => new
+                {
+                    a.ID,
+                    FullName = a.FirstName + " " + a.LastName
+                }),"ID","FullName",book.AuthorsID);
+            
             ViewData["GenreID"] = new SelectList(_context.Set<Genre>(), "ID", "Name", book.GenreID);
             return View(book);
         }
@@ -87,8 +100,14 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Controllers
             {
                 return NotFound();
             }
-            ViewData["AuthorsFirstName"] = new SelectList(_context.Set<Authors>(), "ID", "FirstName", book.AuthorsID);
-            ViewData["AuthorsLastName"] = new SelectList(_context.Set<Authors>(), "ID", "LastName", book.AuthorsID);
+
+            ViewData["AuthorsID"] = new SelectList(_context.Set<Authors>()
+                .Select(a => new
+                {
+                    a.ID,
+                    FullName = a.FirstName + " " + a.LastName
+                }), "ID", "FullName", book.AuthorsID);
+
             ViewData["GenreID"] = new SelectList(_context.Set<Genre>(), "ID", "Name", book.GenreID);
             return View(book);
         }
@@ -98,7 +117,7 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,Authors,Price,GenreID")] Book book)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,AuthorsID,Price,GenreID")] Book book)
         {
             if (id != book.ID)
             {
@@ -125,8 +144,14 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AuthorsFirstName"] = new SelectList(_context.Set<Authors>(), "ID", "FirstName", book.AuthorsID);
-            ViewData["AuthorsLastName"] = new SelectList(_context.Set<Authors>(), "ID", "LastName", book.AuthorsID);
+
+            ViewData["AuthorsID"] = new SelectList(_context.Set<Authors>()
+                .Select(a => new
+                {
+                    a.ID,
+                    FullName = a.FirstName + " " + a.LastName
+                }), "ID", "FullName", book.AuthorsID);
+
             ViewData["GenreID"] = new SelectList(_context.Set<Genre>(), "ID", "Name", book.GenreID);
             return View(book);
         }
