@@ -4,6 +4,7 @@ using Ciciovan_Bogdan_Ionut_Lab2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ciciovan_Bogdan_Ionut_Lab2.Migrations
 {
     [DbContext(typeof(Ciciovan_Bogdan_Ionut_Lab2Context))]
-    partial class Ciciovan_Bogdan_Ionut_Lab2ContextModelSnapshot : ModelSnapshot
+    [Migration("20251217154904_OrderModify")]
+    partial class OrderModify
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
