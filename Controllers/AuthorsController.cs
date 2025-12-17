@@ -34,7 +34,11 @@ namespace Ciciovan_Bogdan_Ionut_Lab2.Controllers
             }
 
             var authors = await _context.Authors
+                .Include(a => a.Books)
+                .ThenInclude(b => b.Genre)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);
+
             if (authors == null)
             {
                 return NotFound();
